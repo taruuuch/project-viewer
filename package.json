@@ -1,0 +1,28 @@
+{
+  "name": "react-redux",
+  "version": "1.0.0",
+  "main": "server.js",
+  "author": "Dima Artemchuk <taruuuch@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "client": "yarn --cwd client start",
+    "server": "nodemon server.js",
+    "dev": "concurrently \"yarn server\" \"yarn client\""
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.3.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.8.9",
+    "morgan": "^1.9.1",
+    "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "concurrently": "^5.0.2"
+  }
+}
