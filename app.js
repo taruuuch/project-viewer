@@ -1,20 +1,20 @@
-const express = require('express');
-const connectLogger = require('./configs/logger.config');
-const { AUTH_ROUTE } = require('./configs/routes.config.js');
+const express = require('express')
+const connectLogger = require('./configs/logger.config')
+const { AUTH_ROUTE } = require('./configs/routes.config.js')
 
-const app = express();
-const PORT = process.env.PORT || 5000;
+const app = express()
+const PORT = process.env.PORT || 5000
 
-app.use(express.json({ extended: true }));
-app.use(connectLogger);
+app.use(express.json({ extended: true }))
+app.use(connectLogger)
 app.use(AUTH_ROUTE, require('./routes/auth.routes'))
 app.use(async (req, res, next) => {
-  const error = new Error(`Api link not found! Go to localhost:${PORT}/api/v1/docs for check available links`);
-  error.status = 404;
-  error.path = `${req.protocol}://${req.get('host')}${req.originalUrl}`;
+  const error = new Error(`Api link not found! Go to localhost:${PORT}/api/v1/docs for check available links`)
+  error.status = 404
+  error.path = `${req.protocol}://${req.get('host')}${req.originalUrl}`
 
-  next(error);
-});
+  next(error)
+})
 app.use((error, req, res, next) => {
   res.status(error.status || 500);
   res.json({
@@ -23,7 +23,7 @@ app.use((error, req, res, next) => {
       code: error.status,
       path: error.path
     }
-  });
-});
+  })
+})
 
 module.exports = app;

@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const DB_URI = process.env.DB_URI;
+const mongoose = require('mongoose')
+const { DB_URI } = require('../configs/database.config')
 
 exports.connect = async () => {
   try {
@@ -8,15 +8,18 @@ exports.connect = async () => {
       useUnifiedTopology: true,
       useFindAndModify: false,
       useCreateIndex: true
-    };
+    }
 
-    await mongoose.connect(DB_URI, mongooseOptions).then(
-      console.log('Database connected!')
-    );
+    await mongoose.connect(DB_URI,  mongooseOptions)
+
+    let db = mongoose.connection
+
+    db.on('error', () => console.error('Connection error: '))
+    db.on('open', () => console.log('Database connected!'))
   } catch (e) {
-    console.log(`Database error ${e.message}`);
-    process.exit(1);
+    console.log(`Database error: ${e.message}`)
+    process.exit(1)
   }
-};
+}
 
-exports.close = async () => await mongoose.connections.close();
+exports.close = async () => await mongoose.connections.close()

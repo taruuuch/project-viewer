@@ -1,3 +1,4 @@
 // Route prefix
-exports.BASIC_ROUTE = `/api/v1`;
-exports.AUTH_ROUTE = `${this.BASIC_ROUTE}/auth`;
+const BASIC_ROUTE = `/api/v1`
+
+exports.AUTH_ROUTE = `${BASIC_ROUTE}/auth`

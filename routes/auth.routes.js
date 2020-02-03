@@ -1,8 +1,8 @@
-const { Router } = require('express');
-const { check } = require('express-validator');
-const { EMAIL_CHECK, PASSWORD_LENGTH } = require('../constants/auth.constants');
-const authController = require('../controllers/auth.controller');
-const router = Router();
+const { Router } = require('express')
+const { check } = require('express-validator')
+const { EMAIL_CHECK, PASSWORD_LENGTH } = require('../constants/auth.constants')
+const authController = require('../controllers/auth.controller')
+const router = Router()
 
 router.post(
   '/registration',
@@ -11,7 +11,7 @@ router.post(
     check('password', PASSWORD_LENGTH).exists().isLength({ min: 6 })
   ],
   authController.registration
-);
+)
 router.post(
   '/login',
   [
@@ -19,6 +19,6 @@ router.post(
     check('password', PASSWORD_LENGTH).exists().isLength({ min: 6 })
   ],
   authController.login
-);
+)
 
-module.exports = router;
+module.exports = router

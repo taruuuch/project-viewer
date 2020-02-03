@@ -1,1 +1,1 @@
-exports.SERVER = `Server start on port`;
+exports.SERVER = `Server start on port`
