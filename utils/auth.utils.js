@@ -1,7 +1,5 @@
 const jwt = require('jsonwebtoken')
-
-const TOKEN_SECRET = process.env.TOKEN_SECRET
-const TOKEN_EXPIRES = process.env.TOKEN_EXPIRES
+const { TOKEN_SECRET, TOKEN_EXPIRES } = require('../configs/auth.config')
 
 exports.generateToken = (userId) => {
   const payload = { id: userId }
