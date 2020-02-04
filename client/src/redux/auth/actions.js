@@ -1,12 +1,9 @@
 import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_ERROR } from './types'
 import { authService } from '../../services/auth.service'
 
-export const loginRequest = (user) => {
+export const fetchLoginUser = (user) => {
   return dispatch => {
-    dispatch({
-      type: LOGIN_REQUEST,
-      payload: user
-    })
+    dispatch(loginRequest(user))
 
     authService.loginUser(user)
       .then(
@@ -19,6 +16,11 @@ export const loginRequest = (user) => {
       )
   }
 }
+
+export const loginRequest = (user) => ({
+  type: LOGIN_REQUEST,
+  payload: user
+})
 
 export const loginSuccess = (token) => ({
   type: LOGIN_SUCCESS,

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 
 export default class Form extends Component {
   constructor(props) {
@@ -11,6 +12,7 @@ export default class Form extends Component {
 
     this.handleEmailChange = this.handleEmailChange.bind(this)
     this.handlePasswordChange = this.handlePasswordChange.bind(this)
+    this.onLoginClick = this.onLoginClick.bind(this)
   }
 
   handleEmailChange(event) {
@@ -25,7 +27,7 @@ export default class Form extends Component {
     })
   }
 
-  onLoginClick = (event) => {
+  onLoginClick(event) {
     event.preventDefault()
 
     const { email, password } = this.state
@@ -36,6 +38,9 @@ export default class Form extends Component {
   render() {
     return (
       <form>
+        <div className="form-group">
+          <Link to="/registration">Reg</Link>
+        </div>
         <div className="form-group">
           <input
             className="form-control"

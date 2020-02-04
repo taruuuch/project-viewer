@@ -1,22 +1,29 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router } from 'react-router-dom'
-import { useRoutes } from './routes/routes'
 import { Provider } from 'react-redux'
+import { BrowserRouter as Router } from 'react-router-dom'
+import Routes from './routes/routes'
 import { store } from './redux/store'
 
-export default class App extends Component {
-  render = () => {
-    const isAuth = !!localStorage.getItem('token')
-    const routes = useRoutes(isAuth)
+class App extends Component {
+  constructor(props) {
+    super(props)
 
+    this.state = {
+      isAuth: false
+    }
+  }
+
+  render() {
     return (
       <Provider store={store}>
         <Router>
           <div className="container">
-            {routes}
+            <Routes isAuth={this.state.isAuth}/>
           </div>
         </Router>
       </Provider>
     )
   }
 }
+
+export default App

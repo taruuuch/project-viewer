@@ -1,9 +1,3 @@
-export const authService = {
-  loginUser,
-  login,
-  logout
-}
-
 function loginUser(user) {
   const requestOptions = {
     method: 'POST',
@@ -15,6 +9,27 @@ function loginUser(user) {
   }
 
   return fetch(`auth/login`, requestOptions)
+    .then(handleResponse)
+    .then(data => {
+      if (data.token) {
+        login(data.token)
+      }
+
+      return data
+    })
+}
+
+function registrationUser(user) {
+  const requestOptions = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify(user)
+  }
+
+  return fetch(`auth/registration`, requestOptions)
     .then(handleResponse)
     .then(data => {
       if (data.token) {
@@ -47,4 +62,11 @@ function handleResponse(response) {
 
     return data;
   });
+}
+
+export const authService = {
+  loginUser,
+  registrationUser,
+  login,
+  logout
 }

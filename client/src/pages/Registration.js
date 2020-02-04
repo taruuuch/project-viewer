@@ -1,24 +1,29 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { fetchRegistrationUser } from '../redux/registration/actions'
+import Form from '../components/Registration/Form'
 
 class RegistrationPage extends Component {
-  render = () => {
+  render() {
     return (
-      <div>
-        <h1>Registration</h1>
-        <form>
-          <div className="form-group">
-            <input type="text" name="email"/>
-          </div>
-          <div className="form-group">
-            <input type="password" name="password"/>
-          </div>
-          <div className="form-group">
-            <button className="btn">Registration</button>
-          </div>
-        </form>
+      <div className="row m-2">
+        <div className="col col-xl-3">
+          <Form
+            isLoading={this.props.isLoading}
+            registrationRequest={this.props.fetchRegistrationUser}
+          />
+        </div>
       </div>
     )
   }
 }
 
-export default RegistrationPage
+const mapStateToProps = (state) => ({
+  isLoading: state.isLoading
+});
+
+const mapDispatchToProps = {
+  fetchRegistrationUser
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RegistrationPage)

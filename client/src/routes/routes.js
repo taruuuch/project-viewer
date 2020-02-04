@@ -1,37 +1,42 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import Dashboard from '../pages/Dashboard'
 import CreateProject from '../pages/CreateProject'
 import Projects from '../pages/Projects'
-import Registration from '../pages/Registration'
-import Login from '../pages/Login'
+import RegistrationPage from '../pages/Registration'
+import LoginPage from '../pages/Login'
 
-export const useRoutes = isAuth => {
-  if (isAuth) {
+class Routes extends Component {
+  render() {
+    if (this.props.isAuth) {
+      return (
+        <Switch>
+          <Route exact path="/dashboard">
+            <Dashboard />
+          </Route>
+          <Route exact path="/dashboard/projects">
+            <Projects />
+          </Route>
+          <Route exact path="/dashboard/create">
+            <CreateProject />
+          </Route>
+          <Redirect to="/dashboard" />
+        </Switch>
+      )
+    }
+
     return (
       <Switch>
-        <Route to="/dashboard" exact>
-          <Dashboard />
+        <Route exact path="/">
+          <LoginPage />
         </Route>
-        <Route to="/dashboard/projects" exact>
-          <Projects />
+        <Route exact path="/registration">
+          <RegistrationPage />
         </Route>
-        <Route to="/dashboard/create" exact>
-          <CreateProject />
-        </Route>
+        <Redirect to="/" />
       </Switch>
     )
   }
-
-  return (
-    <Switch>
-      <Route to="/" exact>
-        <Login />
-      </Route>
-      <Route to="/registration" exact>
-        <Registration />
-      </Route>
-      <Redirect to="/"/>
-    </Switch>
-  )
 }
+
+export default Routes

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { loginRequest } from '../redux/auth/actions'
+import { fetchLoginUser } from '../redux/auth/actions'
 import Form from '../components/Login/Form'
 
 class LoginPage extends Component {
@@ -10,7 +10,7 @@ class LoginPage extends Component {
         <div className="col col-xl-3">
           <Form
             isLoading={this.props.isLoading}
-            loginRequest={this.props.loginRequest}
+            loginRequest={this.props.fetchLoginUser}
           />
         </div>
       </div>
@@ -23,7 +23,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-  loginRequest
+  fetchLoginUser
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPage)
