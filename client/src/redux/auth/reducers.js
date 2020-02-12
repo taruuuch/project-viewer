@@ -3,10 +3,10 @@ import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_ERROR } from './types'
 const initialState = {
   isLoading: false,
   hasError: false,
-  errors: [],
-  isAuth: false,
-  user: {},
-  token: ''
+  errors: null,
+  user: null,
+  token: null,
+  isAuth: false
 }
 
 export const authReducer = (state = initialState, action) => {

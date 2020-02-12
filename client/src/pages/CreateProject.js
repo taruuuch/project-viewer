@@ -1,13 +1,11 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-class CreateProjectPage extends Component {
-  render() {
-    return (
-      <div>
-        Create Project Page
-      </div>
-    )
-  }
+const CreateProjectPage = () => {
+  return (
+    <div>
+      Create Project Page
+    </div>
+  )
 }
 
 export default CreateProjectPage
