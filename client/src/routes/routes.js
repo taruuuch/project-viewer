@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import Dashboard from '../pages/Dashboard'
 import CreateProject from '../pages/CreateProject'
@@ -6,37 +6,33 @@ import Projects from '../pages/Projects'
 import RegistrationPage from '../pages/Registration'
 import LoginPage from '../pages/Login'
 
-class Routes extends Component {
-  render() {
-    if (this.props.isAuth) {
-      return (
-        <Switch>
-          <Route exact path="/dashboard">
-            <Dashboard />
-          </Route>
-          <Route exact path="/dashboard/projects">
-            <Projects />
-          </Route>
-          <Route exact path="/dashboard/create">
-            <CreateProject />
-          </Route>
-          <Redirect to="/dashboard" />
-        </Switch>
-      )
-    }
-
+export const useRoutes = (isAuth) => {
+  if (isAuth) {
     return (
       <Switch>
-        <Route exact path="/">
-          <LoginPage />
+        <Route exact path="/dashboard">
+          <Dashboard />
         </Route>
-        <Route exact path="/registration">
-          <RegistrationPage />
+        <Route exact path="/dashboard/projects">
+          <Projects />
         </Route>
-        <Redirect to="/" />
+        <Route exact path="/dashboard/create">
+          <CreateProject />
+        </Route>
+        <Redirect to="/dashboard" />
       </Switch>
     )
   }
-}
 
-export default Routes
+  return (
+    <Switch>
+      <Route exact path="/">
+        <LoginPage />
+      </Route>
+      <Route exact path="/registration">
+        <RegistrationPage />
+      </Route>
+      <Redirect to="/" />
+    </Switch>
+  )
+}
