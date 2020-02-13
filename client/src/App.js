@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router } from 'react-router-dom'
-import Routes from './routes/routes'
+import { useRoutes } from './routes/routes'
 import { store } from './redux/store'
 
 const App = () => {
   const [isAuth, setIsAuth] = useState(false)
+  const routes = useRoutes(isAuth)
 
   useEffect(() => {
     setIsAuth(false)
@@ -15,7 +16,7 @@ const App = () => {
     <Provider store={store}>
       <Router>
         <div className="container">
-          <Routes isAuth={isAuth}/>
+          {routes}
         </div>
       </Router>
     </Provider>
