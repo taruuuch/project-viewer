@@ -1,11 +1,11 @@
 import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_ERROR } from './types'
-import { authService } from '../../services/auth.service'
+import authService from '../../services/auth.service'
 
-export const fetchLoginUser = (user) => {
+export const fetchLoginUser = (credentials) => {
   return dispatch => {
-    dispatch(loginRequest(user))
+    dispatch(loginRequest(credentials))
 
-    authService.loginUser(user)
+    authService.login(credentials)
       .then(
         data => {
           dispatch(loginSuccess(data.token))
@@ -17,9 +17,9 @@ export const fetchLoginUser = (user) => {
   }
 }
 
-export const loginRequest = (user) => ({
+export const loginRequest = (credentials) => ({
   type: LOGIN_REQUEST,
-  payload: user
+  payload: credentials
 })
 
 export const loginSuccess = (token) => ({

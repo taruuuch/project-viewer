@@ -5,8 +5,7 @@ const initialState = {
   hasError: false,
   errors: null,
   user: null,
-  token: null,
-  isAuth: false
+  token: null
 }
 
 export const authReducer = (state = initialState, action) => {
@@ -14,8 +13,7 @@ export const authReducer = (state = initialState, action) => {
     case LOGIN_REQUEST:
       return {
         ...state,
-        isLoading: true,
-        user: action.payload
+        isLoading: true
       }
     case LOGIN_SUCCESS:
       return {

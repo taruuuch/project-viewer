@@ -1,11 +1,11 @@
 import { REGISTRATION_REQUEST, REGISTRATION_SUCCESS, REGISTRATION_ERROR } from './types'
-import { authService } from '../../services/auth.service'
+import authService from '../../services/auth.service'
 
-export const fetchRegistrationUser = (user) => {
+export const fetchRegistrationUser = (credentials) => {
   return dispatch => {
-    dispatch(registrationRequest(user))
+    dispatch(registrationRequest(credentials))
 
-    authService.registrationUser(user)
+    authService.registration(credentials)
       .then(
         data => {
           dispatch(registrationSuccess(data.token))
@@ -17,9 +17,9 @@ export const fetchRegistrationUser = (user) => {
   }
 }
 
-export const registrationRequest = (user) => ({
+export const registrationRequest = (credentials) => ({
   type: REGISTRATION_REQUEST,
-  payload: user
+  payload: credentials
 })
 
 export const registrationSuccess = (token) => ({

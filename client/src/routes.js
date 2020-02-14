@@ -1,10 +1,10 @@
 import React from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
-import Dashboard from '../pages/Dashboard'
-import CreateProject from '../pages/CreateProject'
-import Projects from '../pages/Projects'
-import RegistrationPage from '../pages/Registration'
-import LoginPage from '../pages/Login'
+import Dashboard from './pages/Dashboard'
+import CreateProject from './pages/CreateProject'
+import Projects from './pages/Projects'
+import RegistrationPage from './pages/Registration'
+import LoginPage from './pages/Login'
 
 export const useRoutes = (isAuth) => {
   if (isAuth) {
