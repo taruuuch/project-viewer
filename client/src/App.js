@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router } from 'react-router-dom'
-import { useRoutes } from './routes/routes'
+import { useAuth } from './hooks/auth.hook'
+import { useRoutes } from './routes'
 import { store } from './redux/store'
 
-const App = () => {
-  const [isAuth, setIsAuth] = useState(false)
+function App() {
+  const { token, ready } = useAuth()
+  const isAuth = !!token
   const routes = useRoutes(isAuth)
 
-  useEffect(() => {
-    setIsAuth(false)
-  }, [isAuth])
+  if (!ready) {
+    return <div>Loading</div>
+  }
 
   return (
     <Provider store={store}>

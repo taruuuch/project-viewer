@@ -14,8 +14,8 @@ exports.connect = async () => {
 
     let db = mongoose.connection
 
-    db.on('error', () => console.error('Connection error: '))
-    db.on('open', () => console.log('Database connected!'))
+    db.on('error', error => console.error(`Connection error: ${error}`))
+    db.once('connected', () => console.log('Database connected!'))
   } catch (e) {
     console.log(`Database error: ${e.message}`)
     process.exit(1)
