@@ -1,14 +1,17 @@
 const express = require('express')
 const connectLogger = require('./config/logger.config')
-const { AUTH_ROUTE, PROJECT_ROUTE } = require('./config/routes.config.js')
+const setupRoutes = require('./util/routes.utils')
+const setupSwagger = require('./docs/swagger.setup');
 
+const { PORT } = require('./config/base.config')
 const app = express()
-const PORT = process.env.PORT || 5000
 
 app.use(express.json({ extended: true }))
 app.use(connectLogger)
-app.use(AUTH_ROUTE, require('./routes/auth.routes'))
-app.use(PROJECT_ROUTE, require('./routes/project.routes'))
+
+setupRoutes(app)
+setupSwagger(app)
+
 app.use(async (req, res, next) => {
   const error = new Error(`Api link not found! Go to localhost:${PORT}/api/v1/docs for check available links`)
   error.status = 404

@@ -1,11 +1,11 @@
 import { REGISTRATION_REQUEST, REGISTRATION_SUCCESS, REGISTRATION_ERROR } from './types'
-import authService from '../../services/auth.service'
+import { authProvider } from '../../providers/auth.provider'
 
 export const fetchRegistrationUser = (credentials) => {
   return dispatch => {
     dispatch(registrationRequest(credentials))
 
-    authService.registration(credentials)
+    authProvider.registration(credentials)
       .then(
         data => {
           dispatch(registrationSuccess(data.token))
