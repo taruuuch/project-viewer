@@ -2,8 +2,7 @@ require('dotenv').config()
 const chalk = require('chalk')
 const app = require('./app')
 const { connect } = require('./util/database.utils')
-const { SERVER } = require('./constants/base.constants')
-const PORT = process.env.PORT || 5000
+const { SERVER, PORT } = require('./config/base.config')
 
 const start = async () => {
   try {
@@ -13,7 +12,7 @@ const start = async () => {
       () => {
         console.clear()
         console.log(`Your server started!`)
-        console.log(chalk.cyan.underline(`http://${SERVER}:${PORT}`))
+        console.log(chalk.cyan(`${SERVER}:${PORT}`))
       }
     )
   } catch (e) {

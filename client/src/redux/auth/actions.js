@@ -1,11 +1,11 @@
 import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_ERROR } from './types'
-import authService from '../../services/auth.service'
+import { authProvider } from '../../providers/auth.provider'
 
 export const fetchLoginUser = (credentials) => {
   return dispatch => {
     dispatch(loginRequest(credentials))
 
-    authService.login(credentials)
+    authProvider.login(credentials)
       .then(
         data => {
           dispatch(loginSuccess(data.token))

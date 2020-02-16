@@ -20,12 +20,12 @@ exports.getAllProjects = async (req, res) => {
 
 exports.getUserProjects = async (req, res) => {
   try {
-    const { _id } = req.decoded
+    const { id } = req.decode
 
-    const projects = await Project.find({ create_by: _id })
+    const projects = await Project.find({ create_by: id })
 
     if (projects.length === 0) {
-      return res.status(400).json({ message: '' })
+      return res.status(400).json({ message: 'This user didnt have a projects' })
     }
 
     res.json({
@@ -33,7 +33,7 @@ exports.getUserProjects = async (req, res) => {
       projects
     })
   } catch (e) {
-    res.status(500).json({ message: '' })
+    res.status(500).json({ message: `${e.message}` })
   }
 }
 
@@ -67,8 +67,7 @@ exports.getProjectInfo = async (req, res) => {
     }
 
     res.json({
-      message: 'Project found',
-      id: projectId,
+      message: `Project [${projectId}] found`,
       project
     })
   } catch (e) {
@@ -104,15 +103,28 @@ exports.addProject = async (req, res) => {
 
 exports.updateProject = async (req, res) => {
   try {
+    const { projectId } = req.params;
+    const body = req.body;
 
+    await Project.findOneAndUpdate(projectId, body, { new: true })
+      .then(result => res.status(200).json({
+          message: 'Project updated!',
+          project: result
+        })
+      )
+      .catch(error => res.status(500).json({
+          message: 'Project updated error',
+          error: error
+        })
+      )
   } catch (e) {
-    res.status(500).json({ message: '' })
+    res.status(500).json({ message: `${e.message}` })
   }
 }
 
 exports.deleteProject = async (req, res) => {
   try {
-    const projectId = req.params.projectId
+    const { projectId } = req.params
 
     const result = await Project.deleteOne({ _id: projectId })
 

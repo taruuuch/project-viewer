@@ -1,11 +1,10 @@
 import { createStore, applyMiddleware, compose  } from 'redux'
 import thunk from 'redux-thunk'
 import rootReducer from './reducers'
-import { loadState, saveState } from '../services/state.service'
+import { stateProvider } from '../providers/state.provider'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-
-const persistedState = loadState()
+const persistedState = stateProvider.loadState()
 
 export const store = createStore(
   rootReducer,
@@ -18,5 +17,5 @@ export const store = createStore(
 )
 
 store.subscribe(() => {
-  saveState(store.getState())
+  stateProvider.saveState(store.getState())
 })

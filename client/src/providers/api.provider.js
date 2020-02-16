@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export const apiClient = axios.create({
+export const apiProvider = axios.create({
   // baseURL: '',
   timeout: 3000,
   headers: {
@@ -9,7 +9,7 @@ export const apiClient = axios.create({
   }
 })
 
-apiClient.interceptors.request.use(
+apiProvider.interceptors.request.use(
   reqConfig => {
     const token = JSON.parse(localStorage.getItem('token'))
 

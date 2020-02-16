@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const chalk = require('chalk')
 const { DB_URI } = require('../config/database.config')
 
 exports.connect = async () => {
@@ -10,12 +11,16 @@ exports.connect = async () => {
       useCreateIndex: true
     }
 
-    await mongoose.connect(DB_URI,  mongooseOptions)
+    return await mongoose.connect(
+      DB_URI,
+      mongooseOptions
+    ).then(resolved => {
+      console.log(chalk.yellow(`Server connected to MongoDB`))
 
-    let db = mongoose.connection
+      mongoose.connection.on('error', error => console.error(`Connection error: ${error}`))
 
-    db.on('error', error => console.error(`Connection error: ${error}`))
-    db.once('connected', () => console.log('Database connected!'))
+      return resolved
+    })
   } catch (e) {
     console.log(`Database error: ${e.message}`)
     process.exit(1)
