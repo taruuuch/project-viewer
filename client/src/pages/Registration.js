@@ -1,15 +1,15 @@
 import React, { useCallback, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchRegistrationUser } from '../redux/registration/actions'
+import { registrationUser } from '../redux/registration/actions'
 
 const RegistrationPage = () => {
   const [form, setForm] = useState({
     email: '',
     password: ''
   })
-  const isLoading = useSelector(state => state.isLoading)
+  const isLoading = useSelector(state => state.registration.isLoading)
   const dispatch = useDispatch()
-  const registrationUser = useCallback(() => dispatch(fetchRegistrationUser(form)), [dispatch, form])
+  const registration = useCallback(() => dispatch(registrationUser(form)), [dispatch, form])
 
   const handleChange = event => {
     setForm({
@@ -20,7 +20,7 @@ const RegistrationPage = () => {
 
   const onRegistrationClick = event => {
     event.preventDefault()
-    registrationUser()
+    registration()
   }
 
   return (

@@ -1,22 +1,16 @@
 import React from 'react'
 import { Provider } from 'react-redux'
-import { BrowserRouter as Router } from 'react-router-dom'
-import { useAuth } from './hooks/auth.hook'
+import { history } from './helpers/history'
+import { Router } from 'react-router-dom'
 import { useRoutes } from './routes'
 import { store } from './redux/store'
 
 function App() {
-  const { token, ready } = useAuth()
-  const isAuth = !!token
-  const routes = useRoutes(isAuth)
-
-  if (!ready) {
-    return <div>Loading</div>
-  }
+  const routes = useRoutes()
 
   return (
     <Provider store={store}>
-      <Router>
+      <Router history={history}>
         <div className="container">
           {routes}
         </div>

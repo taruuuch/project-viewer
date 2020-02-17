@@ -3,10 +3,10 @@ import { REGISTRATION_REQUEST, REGISTRATION_SUCCESS, REGISTRATION_ERROR } from '
 const initialState = {
   isLoading: false,
   hasError: false,
-  errors: [],
   isAuth: false,
-  user: {},
-  token: ''
+  errors: null,
+  user: null,
+  token: null
 }
 
 export const registrationReducer = (state = initialState, action) => {
@@ -15,21 +15,21 @@ export const registrationReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: true,
-        user: action.payload
+        user: action.credentials
       }
     case REGISTRATION_SUCCESS:
       return {
         ...state,
         isLoading: false,
         isAuth: true,
-        token: action.payload
+        token: action.token
       }
     case REGISTRATION_ERROR:
       return {
         ...state,
         isLoading: false,
         hasError: true,
-        errors: action.payload
+        errors: action.errors
       }
     default:
       return state

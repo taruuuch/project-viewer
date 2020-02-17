@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchLoginUser } from '../redux/auth/actions'
+import { loginUser } from '../redux/auth/actions'
 import { NavLink } from 'react-router-dom'
 
 const LoginPage = () => {
@@ -8,9 +8,9 @@ const LoginPage = () => {
     email: 'test@test.ua',
     password: 'password'
   })
-  const isLoading = useSelector(state => state.isLoading)
+  const isLoading = useSelector(state => state.auth.isLoading)
   const dispatch = useDispatch()
-  const loginUser = useCallback(() => dispatch(fetchLoginUser(form)), [dispatch, form])
+  const login = useCallback(() => dispatch(loginUser(form)), [dispatch, form])
 
   const changeHandler = event => {
     setForm({
@@ -21,7 +21,7 @@ const LoginPage = () => {
 
   const onLoginClick = (event) => {
     event.preventDefault()
-    loginUser()
+    login()
   }
 
   return (

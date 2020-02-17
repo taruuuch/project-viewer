@@ -1,7 +1,7 @@
 import { REGISTRATION_REQUEST, REGISTRATION_SUCCESS, REGISTRATION_ERROR } from './types'
 import { authProvider } from '../../providers/auth.provider'
 
-export const fetchRegistrationUser = (credentials) => {
+export const registrationUser = (credentials) => {
   return dispatch => {
     dispatch(registrationRequest(credentials))
 
@@ -19,15 +19,15 @@ export const fetchRegistrationUser = (credentials) => {
 
 export const registrationRequest = (credentials) => ({
   type: REGISTRATION_REQUEST,
-  payload: credentials
+  credentials
 })
 
 export const registrationSuccess = (token) => ({
   type: REGISTRATION_SUCCESS,
-  payload: token
+  token
 })
 
 export const registrationError = (errors) => ({
   type: REGISTRATION_ERROR,
-  payload: errors
+  errors
 })

@@ -1,29 +1,26 @@
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_ERROR } from './types'
+import { PROJECTS_REQUEST, PROJECTS_SUCCESS, PROJECTS_ERROR } from './types'
 
 const initialState = {
   isLoading: false,
   hasError: false,
   errors: null,
-  user: null,
-  token: null
+  projects: null
 }
 
-export const authReducer = (state = initialState, action) => {
+export const projectsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case LOGIN_REQUEST:
+    case PROJECTS_REQUEST:
       return {
         ...state,
-        isLoading: true,
-        user: action.credentials
+        isLoading: true
       }
-    case LOGIN_SUCCESS:
+    case PROJECTS_SUCCESS:
       return {
         ...state,
         isLoading: false,
-        isAuth: true,
-        token: action.token
+        projects: action.projects
       }
-    case LOGIN_ERROR:
+    case PROJECTS_ERROR:
       return {
         ...state,
         isLoading: false,
