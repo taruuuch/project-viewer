@@ -1,20 +1,21 @@
 const Project = require('../models/Project')
 const { validationResult } = require('express-validator')
+const { PROJECT_NOT_FOUND, PROJECTS_FOUND, USER_DIDNT_HAVE_PROJECTS, USER_PROJECTS_FOUND, PROJECT_NOT_FOUND, PROJECT_FOUND, INVALID_FOUND, PROJECT_CREATE, PROJECT_CREATE_ERROR, PROJECT_UPDATE, PROJECT_UPDATE_ERROR, PROJECT_DELETED, PROJECT_DELETED_ERROR } = require('../constants/project.constants')
 
 exports.getAllProjects = async (req, res) => {
   try {
     const projects = await Project.find()
 
     if (projects.length === 0) {
-      return res.status(400).json({ message: 'Projects not exists!' })
+      return res.status(400).json({ message: PROJECT_NOT_FOUND })
     }
 
     res.json({
-      message: 'Projects found',
+      message: PROJECTS_FOUND,
       projects
     })
   } catch (e) {
-    res.status(500).json({ message: '' })
+    res.status(500).json({ message: e.message })
   }
 }
 
@@ -25,15 +26,15 @@ exports.getUserProjects = async (req, res) => {
     const projects = await Project.find({ create_by: id })
 
     if (projects.length === 0) {
-      return res.status(400).json({ message: 'This user didnt have a projects' })
+      return res.status(400).json({ message: USER_DIDNT_HAVE_PROJECTS })
     }
 
     res.json({
-      message: '',
+      message: USER_PROJECTS_FOUND,
       projects
     })
   } catch (e) {
-    res.status(500).json({ message: `${e.message}` })
+    res.status(500).json({ message: e.message })
   }
 }
 
@@ -44,15 +45,15 @@ exports.getUserDevsProjects = async (req, res) => {
     const projects = await Project.find({ devs: userId })
 
     if (projects.length === 0) {
-      return res.status(400).json({ message: '' })
+      return res.status(400).json({ message: PROJECTS_NOT_FOUND })
     }
 
     res.json({
-      message: '',
+      message: PROJECTS_FOUND,
       projects
     })
   } catch (e) {
-    res.status(500).json({ message: '' })
+    res.status(500).json({ message: e.message })
   }
 }
 
@@ -63,15 +64,15 @@ exports.getProjectInfo = async (req, res) => {
     const project = await Project.findOne({ _id: projectId })
 
     if (!project) {
-      return res.status(400).json({ message: 'Project not exist!' })
+      return res.status(400).json({ message: PROJECT_NOT_FOUND })
     }
 
     res.json({
-      message: `Project [${projectId}] found`,
+      message: PROJECT_FOUND,
       project
     })
   } catch (e) {
-    res.status(500).json({ message: '' })
+    res.status(500).json({ message: e.message })
   }
 }
 
@@ -81,7 +82,7 @@ exports.addProject = async (req, res) => {
 
     if (!errors.isEmpty()) {
       return res.status(400).json({
-        message: 'Invalid data',
+        message: INVALID_FOUND,
         errors: errors.array()
       })
     }
@@ -92,12 +93,12 @@ exports.addProject = async (req, res) => {
     const project = new Project({ title, logo, create_by: id, devs: [id], description, tags })
 
     await project.save().then(project => res.json({
-      message: 'Project created!',
+      message: PROJECT_CREATE,
       project
     })
     )
   } catch (e) {
-    res.status(500).json({ message: `Create project error: ${e.message}` })
+    res.status(500).json({ message: `${PROJECT_CREATE_ERROR} ${e.message}` })
   }
 }
 
@@ -108,17 +109,17 @@ exports.updateProject = async (req, res) => {
 
     await Project.findOneAndUpdate(projectId, body, { new: true })
       .then(result => res.status(200).json({
-          message: 'Project updated!',
+          message: PROJECT_UPDATE,
           project: result
         })
       )
       .catch(error => res.status(500).json({
-          message: 'Project updated error',
+          message: PROJECT_UPDATE_ERROR,
           error: error
         })
       )
   } catch (e) {
-    res.status(500).json({ message: `${e.message}` })
+    res.status(500).json({ message: e.message })
   }
 }
 
@@ -129,11 +130,11 @@ exports.deleteProject = async (req, res) => {
     const result = await Project.deleteOne({ _id: projectId })
 
     if (!result) {
-      return res.status(400).json({ message: '' })
+      return res.status(400).json({ message: PROJECT_DELETED_ERROR })
     }
 
-    res.json({ message: 'Project deleted!' })
+    res.json({ message: PROJECT_DELETED })
   } catch (e) {
-    res.status(500).json({ message: '' })
+    res.status(500).json({ message: e.message })
   }
 }
