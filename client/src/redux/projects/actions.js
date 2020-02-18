@@ -21,7 +21,6 @@ export const getProjectInfo = (id) => dispatch => {
   projectProvider.getProjectById(id)
     .then(
       response => {
-        console.log(response)
         dispatch(projectSuccess(response.data.project))
       },
       error => {

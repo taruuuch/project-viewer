@@ -3,6 +3,7 @@ import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_ERROR } from './types'
 const initialState = {
   isLoading: false,
   hasError: false,
+  isAuth: false,
   errors: null,
   user: null,
   token: null

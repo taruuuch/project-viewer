@@ -2,6 +2,7 @@ import React, { useEffect, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { getProjectInfo } from '../redux/projects/actions'
+import { CircularProgress } from '@material-ui/core'
 
 export const ProjectDetailPage = () => {
   const params = useParams()
@@ -15,10 +16,8 @@ export const ProjectDetailPage = () => {
   }, [getProject])
 
   if (isLoading) {
-    return <div>Loading...</div>
+    return <CircularProgress />
   }
-
-  console.log(project)
 
   return (
     <div>

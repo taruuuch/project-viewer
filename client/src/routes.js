@@ -1,7 +1,7 @@
 import React from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import { PrivateRoute } from './components/PrivateRoute'
-import { DashboardPage } from './pages/Dashboard'
+import { ProfilePage } from './pages/Profile'
 import { CreateProjectPage } from './pages/CreateProject'
 import { ProjectsPage } from './pages/Projects'
 import { RegistrationPage } from './pages/Registration'
@@ -23,8 +23,8 @@ export const useRoutes = () => {
       <Route exact path="/registration">
         <RegistrationPage />
       </Route>
-      <PrivateRoute exact path="/dashboard" component={DashboardPage} />
-      <PrivateRoute exact path="/dashboard/create" component={CreateProjectPage} />
+      <PrivateRoute exact path="/profile" component={ProfilePage} />
+      <PrivateRoute exact path="/portfolio/create" component={CreateProjectPage} />
       <Redirect to="/" />
     </Switch>
   )
