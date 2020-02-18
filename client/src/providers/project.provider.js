@@ -6,7 +6,7 @@ const projectMyUri = 'project/my'
 const createProjectProvider = () => {
   const getAllProjects = async () => await apiProvider.get(projectUri)
   const getUserProjects = async () => await apiProvider.get(projectMyUri)
-  const getProjectById = async (id) => await apiProvider.get(`${projectUri}/${id}`)
+  const getProjectById = async (id) => await apiProvider.get(``)
   const createProject = async (project) => await apiProvider.post(projectUri, project)
   const updateProject = async (id) => await apiProvider.patch(`${projectUri}/${id}`)
 

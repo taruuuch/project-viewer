@@ -1,17 +1,17 @@
 import React, { useEffect, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAllProjects } from '../redux/projects/actions'
 import { Link } from 'react-router-dom'
+import { getAllProjects } from '../redux/projects/actions'
 
-const ProjectsPage = () => {
+export const ProjectsPage = () => {
   const isLoading = useSelector(state => state.projects.isLoading)
   const projects = useSelector(state => state.projects.projects)
   const dispatch = useDispatch()
-  const fetchProject = useCallback(() => dispatch(getAllProjects()), [dispatch, projects])
+  const getProjects = useCallback(() => dispatch(getAllProjects()), [dispatch])
 
   useEffect(() => {
-    fetchProject()
-  }, [projects])
+    getProjects()
+  }, [getProjects])
 
   if (isLoading) {
     return <div>Loading...</div>
@@ -41,5 +41,3 @@ const ProjectsPage = () => {
     </div>
   )
 }
-
-export default ProjectsPage

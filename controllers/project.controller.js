@@ -58,7 +58,7 @@ exports.getUserDevsProjects = async (req, res) => {
 
 exports.getProjectInfo = async (req, res) => {
   try {
-    const projectId = req.params.projectId
+    const { projectId } = req.params
 
     const project = await Project.findOne({ _id: projectId })
 

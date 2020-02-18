@@ -1,6 +1,6 @@
 const { Router } = require('express')
 const { check } = require('express-validator')
-const { getAllProjects, getUserProjects, getProjectInfo,  addProject, updateProject, deleteProject, getUserDevsProjects } = require('../controllers/project.controller')
+const { getAllProjects, getUserProjects, getProjectInfo, addProject, updateProject, deleteProject, getUserDevsProjects } = require('../controllers/project.controller')
 const authMiddleware = require('../middleware/auth.middleware')
 const router = Router()
 

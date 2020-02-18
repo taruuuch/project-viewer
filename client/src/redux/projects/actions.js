@@ -1,4 +1,4 @@
-import { PROJECTS_REQUEST, PROJECTS_SUCCESS, PROJECTS_ERROR } from './types'
+import { PROJECTS_REQUEST, PROJECTS_SUCCESS, PROJECT_SUCCESS, PROJECTS_ERROR } from './types'
 import { projectProvider } from '../../providers/project.provider'
 
 export const getAllProjects = () => dispatch => {
@@ -17,6 +17,17 @@ export const getAllProjects = () => dispatch => {
 
 export const getProjectInfo = (id) => dispatch => {
   dispatch(projectsRequest(id))
+
+  projectProvider.getProjectById(id)
+    .then(
+      response => {
+        console.log(response)
+        dispatch(projectSuccess(response.data.project))
+      },
+      error => {
+        dispatch(projectsError(error))
+      }
+    )
 }
 
 export const projectsRequest = () => ({
@@ -26,6 +37,11 @@ export const projectsRequest = () => ({
 export const projectsSuccess = (projects) => ({
   type: PROJECTS_SUCCESS,
   projects
+})
+
+export const projectSuccess = (project) => ({
+  type: PROJECT_SUCCESS,
+  project
 })
 
 export const projectsError = (errors) => ({

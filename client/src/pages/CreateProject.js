@@ -1,11 +1,9 @@
 import React from 'react'
 
-const CreateProjectPage = () => {
+export const CreateProjectPage = () => {
   return (
     <div>
       Create Project Page
     </div>
   )
 }
-
-export default CreateProjectPage

@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { registrationUser } from '../redux/registration/actions'
 
-const RegistrationPage = () => {
+export const RegistrationPage = () => {
   const [form, setForm] = useState({
     email: '',
     password: ''
@@ -65,5 +65,3 @@ const RegistrationPage = () => {
     </div>
   )
 }
-
-export default RegistrationPage

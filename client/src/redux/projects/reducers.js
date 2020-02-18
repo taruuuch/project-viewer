@@ -1,10 +1,11 @@
-import { PROJECTS_REQUEST, PROJECTS_SUCCESS, PROJECTS_ERROR } from './types'
+import { PROJECTS_REQUEST, PROJECTS_SUCCESS, PROJECT_SUCCESS, PROJECTS_ERROR } from './types'
 
 const initialState = {
   isLoading: false,
   hasError: false,
   errors: null,
-  projects: null
+  projects: null,
+  project: null
 }
 
 export const projectsReducer = (state = initialState, action) => {
@@ -19,6 +20,12 @@ export const projectsReducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
         projects: action.projects
+      }
+    case PROJECT_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        project: action.project
       }
     case PROJECTS_ERROR:
       return {

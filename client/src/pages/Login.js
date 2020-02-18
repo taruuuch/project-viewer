@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { loginUser } from '../redux/auth/actions'
 import { NavLink } from 'react-router-dom'
 
-const LoginPage = () => {
+export const LoginPage = () => {
   const [form, setForm] = useState({
     email: 'test@test.ua',
     password: 'password'
@@ -63,5 +63,3 @@ const LoginPage = () => {
     </div>
   )
 }
-
-export default LoginPage
