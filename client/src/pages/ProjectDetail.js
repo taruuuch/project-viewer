@@ -1,8 +1,9 @@
-import React, { useEffect, useCallback } from 'react'
+import React, { useEffect, useCallback, Fragment } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { getProjectInfo } from '../redux/projects/actions'
-import { CircularProgress } from '@material-ui/core'
+import { CircularProgress, Typography } from '@material-ui/core'
+import dayjs from 'dayjs'
 
 export const ProjectDetailPage = () => {
   const params = useParams()
@@ -21,17 +22,20 @@ export const ProjectDetailPage = () => {
 
   return (
     <div>
-      <h1>{project.title}</h1>
-      <div>{project.description}</div>
-      <div>
-        <p>{project.create_by}</p>
-        <p>{project.create_at}</p>
-        <p>{project.devs.forEach(dev => {
-          return ({dev})
-        })}</p>
-        <p>{project.tags}</p>
-        <p>{project.viewers}</p>
-      </div>
+      {project
+        ? <Fragment>
+            <Typography variant="h4">{project.title}</Typography>
+            <Typography paragraph>{project.description}</Typography>
+            <div>
+              <p>USER ID: {project.create_by}</p>
+              <p>DATE: {dayjs(project.create_at).format()}</p>
+              <p>DEVS: {project.devs.forEach(dev => <Fragment>{dev}</Fragment>)}</p>
+              <p>TAGS: {project.tags}</p>
+              <p>Viewers: {project.viewers}</p>
+            </div>
+          </Fragment>
+        : <Typography paragraph>Project loading error</Typography>
+      }
     </div>
   )
 }

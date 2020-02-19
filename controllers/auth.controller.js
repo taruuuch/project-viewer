@@ -1,8 +1,7 @@
 const bcrypt = require('bcryptjs')
 const User = require('../models/User')
 const { validationResult } = require('express-validator')
-const { AUTH_ERROR, USER_EXIST, USER_CREATED, INVALID_DATA, USER_NOT_FOUND, INVALID_PASSWORD, AUTH_SUCCESS } = require('../constants/auth.constants')
-const { TOKEN_EXPIRES } = require('../config/auth.config')
+const { AUTH_ERROR, USER_EXIST, INVALID_DATA, USER_NOT_FOUND, INVALID_PASSWORD } = require('../constants/auth.constants')
 const { generateToken } = require('../util/auth.utils')
 
 exports.registration = async (req, res) => {
@@ -30,14 +29,7 @@ exports.registration = async (req, res) => {
       password: hashedPassword
     })
 
-    await user.save().then(user => res.json({
-      message: USER_CREATED,
-      token: {
-        accessToken: generateToken(user.id),
-        expires: TOKEN_EXPIRES
-      }
-    })
-    )
+    await user.save().then(user => res.json({ token: generateToken(user.id)}))
   } catch (e) {
     res.status(500).json({ message: AUTH_ERROR })
   }
@@ -68,13 +60,7 @@ exports.login = async (req, res) => {
       return res.status(400).json({ message: INVALID_PASSWORD })
     }
 
-    res.json({
-      message: AUTH_SUCCESS,
-      token: {
-        accessToken: generateToken(user.id),
-        expires: TOKEN_EXPIRES
-      }
-    })
+    res.json({ token: generateToken(user.id)})
   } catch (e) {
     res.status(500).json({ message: AUTH_ERROR })
   }

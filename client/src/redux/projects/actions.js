@@ -7,7 +7,7 @@ export const getAllProjects = () => dispatch => {
   projectProvider.getAllProjects()
     .then(
       response => {
-        dispatch(projectsSuccess(response.data.projects))
+        dispatch(projectsSuccess(response.data))
       },
       error => {
         dispatch(projectsError(error))
@@ -16,12 +16,12 @@ export const getAllProjects = () => dispatch => {
 }
 
 export const getProjectInfo = (id) => dispatch => {
-  dispatch(projectsRequest(id))
+  dispatch(projectsRequest())
 
   projectProvider.getProjectById(id)
     .then(
       response => {
-        dispatch(projectSuccess(response.data.project))
+        dispatch(projectSuccess(response.data))
       },
       error => {
         dispatch(projectsError(error))

@@ -13,8 +13,8 @@ apiProvider.interceptors.request.use(
   reqConfig => {
     const token = JSON.parse(localStorage.getItem('token'))
 
-    if (token && token.accessToken) {
-      reqConfig.headers.Authorization = `Bearer ${token.accessToken}`
+    if (token) {
+      reqConfig.headers.Authorization = `Bearer ${token}`
     }
 
     return reqConfig

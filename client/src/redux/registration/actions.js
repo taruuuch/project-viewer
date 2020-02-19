@@ -1,13 +1,17 @@
 import { REGISTRATION_REQUEST, REGISTRATION_SUCCESS, REGISTRATION_ERROR } from './types'
 import { authProvider } from '../../providers/auth.provider'
+import { history } from '../../helpers/history'
 
 export const registrationUser = (credentials) => dispatch => {
   dispatch(registrationRequest(credentials))
 
   authProvider.registration(credentials)
     .then(
-      data => {
-        dispatch(registrationSuccess(data.token))
+      response => {
+        const token = response.data.token
+        dispatch(registrationSuccess(response.data.token))
+        localStorage.setItem('token', JSON.stringify(token))
+        history.push('/')
       },
       error => {
         dispatch(registrationError(error))

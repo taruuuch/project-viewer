@@ -1,6 +1,6 @@
 const Project = require('../models/Project')
 const { validationResult } = require('express-validator')
-const { PROJECTS_NOT_FOUND, PROJECTS_FOUND, USER_DIDNT_HAVE_PROJECTS, USER_PROJECTS_FOUND, PROJECT_NOT_FOUND, PROJECT_FOUND, INVALID_FOUND, PROJECT_CREATE, PROJECT_CREATE_ERROR, PROJECT_UPDATE, PROJECT_UPDATE_ERROR, PROJECT_DELETED, PROJECT_DELETED_ERROR } = require('../constants/project.constants')
+const { PROJECTS_NOT_FOUND, USER_DIDNT_HAVE_PROJECTS,  PROJECT_NOT_FOUND, INVALID_FOUND, PROJECT_CREATE_ERROR,  PROJECT_UPDATE_ERROR, PROJECT_DELETED, PROJECT_DELETED_ERROR } = require('../constants/project.constants')
 
 exports.getAllProjects = async (req, res) => {
   try {
@@ -10,10 +10,7 @@ exports.getAllProjects = async (req, res) => {
       return res.status(400).json({ message: PROJECT_NOT_FOUND })
     }
 
-    res.json({
-      message: PROJECTS_FOUND,
-      projects
-    })
+    res.json(projects)
   } catch (e) {
     res.status(500).json({ message: e.message })
   }
@@ -29,10 +26,7 @@ exports.getUserProjects = async (req, res) => {
       return res.status(400).json({ message: USER_DIDNT_HAVE_PROJECTS })
     }
 
-    res.json({
-      message: USER_PROJECTS_FOUND,
-      projects
-    })
+    res.json(projects)
   } catch (e) {
     res.status(500).json({ message: e.message })
   }
@@ -48,10 +42,7 @@ exports.getUserDevsProjects = async (req, res) => {
       return res.status(400).json({ message: PROJECTS_NOT_FOUND })
     }
 
-    res.json({
-      message: PROJECTS_FOUND,
-      projects
-    })
+    res.json(projects)
   } catch (e) {
     res.status(500).json({ message: e.message })
   }
@@ -67,10 +58,7 @@ exports.getProjectInfo = async (req, res) => {
       return res.status(400).json({ message: PROJECT_NOT_FOUND })
     }
 
-    res.json({
-      message: PROJECT_FOUND,
-      project
-    })
+    res.json(project)
   } catch (e) {
     res.status(500).json({ message: e.message })
   }
@@ -92,10 +80,7 @@ exports.addProject = async (req, res) => {
 
     const project = new Project({ title, logo, create_by: id, devs: [id], description, tags })
 
-    await project.save().then(project => res.json({
-      message: PROJECT_CREATE,
-      project
-    })
+    await project.save().then(project => res.json(project)
     )
   } catch (e) {
     res.status(500).json({ message: `${PROJECT_CREATE_ERROR} ${e.message}` })
@@ -108,16 +93,11 @@ exports.updateProject = async (req, res) => {
     const body = req.body;
 
     await Project.findOneAndUpdate(projectId, body, { new: true })
-      .then(result => res.status(200).json({
-          message: PROJECT_UPDATE,
-          project: result
-        })
-      )
+      .then(project => res.status(200).json(project))
       .catch(error => res.status(500).json({
-          message: PROJECT_UPDATE_ERROR,
-          error: error
-        })
-      )
+        message: PROJECT_UPDATE_ERROR,
+        error: error
+      }))
   } catch (e) {
     res.status(500).json({ message: e.message })
   }

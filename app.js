@@ -13,7 +13,7 @@ setupRoutes(app)
 setupSwagger(app)
 
 app.use(async (req, res, next) => {
-  const error = new Error(`Api link not found! Go to localhost:${PORT}/api/v1/docs for check available links`)
+  const error = new Error(`Api link not found! Go to localhost:${PORT} for check available links`)
   error.status = 404
   error.path = `${req.protocol}://${req.get('host')}${req.originalUrl}`
 
