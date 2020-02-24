@@ -1,13 +1,11 @@
 import { apiProvider } from './api.provider'
 
-const userMyUri = 'user/my'
-
-const createUserProvider = () => {
-  const getMyProfile = async () => await apiProvider.get(userMyUri)
-
-  return {
-    getMyProfile
+class createUserProvider {
+  constructor() {
+    this.userMyUri = 'user/my'
   }
+
+  getMyProfile = async () => await apiProvider.get(this.userMyUri)
 }
 
-export const userProvider = createUserProvider()
+export const userProvider = new createUserProvider()

@@ -55,6 +55,12 @@ export const AppBarUser = ({ isAuth }) => {
                 title="Create project"
               />
             </MenuItem>
+            <MenuItem>
+              <AppBarLink
+                link="/logout"
+                title="Logout"
+              />
+            </MenuItem>
           </Menu>
         </div>
       )}

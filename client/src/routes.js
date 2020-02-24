@@ -6,6 +6,7 @@ import { CreateProjectPage } from './pages/CreateProject'
 import { ProjectsPage } from './pages/Projects'
 import { RegistrationPage } from './pages/Registration'
 import { LoginPage } from './pages/Login'
+import { LogoutPage } from './pages/Logout'
 import { ProjectDetailPage } from './pages/ProjectDetail'
 
 export const useRoutes = () => {
@@ -19,6 +20,9 @@ export const useRoutes = () => {
       </Route>
       <Route exact path="/login">
         <LoginPage />
+      </Route>
+      <Route exact path="/logout">
+        <LogoutPage />
       </Route>
       <Route exact path="/registration">
         <RegistrationPage />

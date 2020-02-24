@@ -1,13 +1,15 @@
 const express = require('express')
-const connectLogger = require('./config/logger.config')
+const bodyParser = require('body-parser')
+const setupLogger = require('./config/logger.config')
 const setupRoutes = require('./util/routes.utils')
 const setupSwagger = require('./docs/swagger.setup');
 
 const { PORT } = require('./config/base.config')
 const app = express()
 
-app.use(express.json({ extended: true }))
-app.use(connectLogger)
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(setupLogger)
 
 setupRoutes(app)
 setupSwagger(app)

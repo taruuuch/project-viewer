@@ -80,7 +80,7 @@ exports.addProject = async (req, res) => {
 
     const project = new Project({ title, logo, create_by: id, devs: [id], description, tags })
 
-    await project.save().then(project => res.json(project)
+    await project.save().then(project => res.status(201).json(project)
     )
   } catch (e) {
     res.status(500).json({ message: `${PROJECT_CREATE_ERROR} ${e.message}` })

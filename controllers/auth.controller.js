@@ -29,7 +29,7 @@ exports.registration = async (req, res) => {
       password: hashedPassword
     })
 
-    await user.save().then(user => res.json({ token: generateToken(user.id)}))
+    await user.save().then(user => res.status(201).json({ token: generateToken(user.id)}))
   } catch (e) {
     res.status(500).json({ message: AUTH_ERROR })
   }

@@ -1,16 +1,13 @@
 import { apiProvider } from './api.provider'
 
-const authUri = 'auth/login'
-const registrationUri = 'auth/registration'
-
-const createAuthProvider = () => {
-  const login = async (credentials) => await apiProvider.post(authUri, credentials)
-  const registration = async (credentials) => await apiProvider.post(registrationUri, credentials)
-
-  return {
-    login,
-    registration
+class createAuthProvider {
+  constructor() {
+    this.authUri = 'auth/login'
+    this.registrationUri = 'auth/registration'
   }
+
+  login = async (credentials) => await apiProvider.post(this.authUri, credentials)
+  registration = async (credentials) => await apiProvider.post(this.registrationUri, credentials)
 }
 
-export const authProvider = createAuthProvider()
+export const authProvider = new createAuthProvider()

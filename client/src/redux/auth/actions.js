@@ -1,6 +1,7 @@
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_ERROR } from './types'
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT_USER } from './types'
 import { authProvider } from '../../providers/auth.provider'
 import { history } from '../../helpers/history'
+import { store } from '../store'
 
 export const loginUser = (credentials) => dispatch => {
   dispatch(loginRequest(credentials))
@@ -14,9 +15,19 @@ export const loginUser = (credentials) => dispatch => {
         history.push('/')
       },
       error => {
-        dispatch(loginError(error))
+        dispatch(loginError(error.message))
       }
     )
+}
+
+export const logoutUser = () => dispatch => {
+  localStorage.removeItem('token')
+  store.getState().registration.token = null
+  store.getState().user.user = null
+
+  dispatch({
+    type: LOGOUT_USER
+  })
 }
 
 export const loginRequest = (credentials) => ({

@@ -1,22 +1,16 @@
 import { apiProvider } from './api.provider'
 
-const projectUri = 'project'
-const projectMyUri = 'project/my'
-
-const createProjectProvider = () => {
-  const getAllProjects = async () => await apiProvider.get(projectUri)
-  const getUserProjects = async () => await apiProvider.get(projectMyUri)
-  const getProjectById = async (id) => await apiProvider.get(``)
-  const createProject = async (project) => await apiProvider.post(projectUri, project)
-  const updateProject = async (id) => await apiProvider.patch(`${projectUri}/${id}`)
-
-  return {
-    getAllProjects,
-    getUserProjects,
-    getProjectById,
-    createProject,
-    updateProject
+class createProjectProvider {
+  constructor() {
+    this.projectUri = 'project'
+    this.projectMyUri = 'project/my'
   }
+
+  getAllProjects = async () => await apiProvider.get(this.projectUri)
+  getUserProjects = async () => await apiProvider.get(this.projectMyUri)
+  getProjectById = async (id) => await apiProvider.get(``)
+  createProject = async (project) => await apiProvider.post(this.projectUri, project)
+  updateProject = async (id) => await apiProvider.patch(`${this.projectUri}/${id}`)
 }
 
-export const projectProvider = createProjectProvider()
+export const projectProvider = new createProjectProvider()

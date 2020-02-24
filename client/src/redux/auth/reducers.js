@@ -1,4 +1,4 @@
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_ERROR } from './types'
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT_USER } from './types'
 
 const initialState = {
   isLoading: false,
@@ -16,6 +16,10 @@ export const authReducer = (state = initialState, action) => {
         ...state,
         isLoading: true,
         user: action.credentials
+      }
+    case LOGOUT_USER:
+      return {
+        ...initialState
       }
     case LOGIN_SUCCESS:
       return {

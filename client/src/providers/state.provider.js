@@ -1,5 +1,5 @@
-const createStateProvider = () => {
-  const loadState = () => {
+class createStateProvider {
+  loadState = () => {
     try {
       const serializedState = localStorage.getItem('state')
       if (serializedState === null) {
@@ -11,7 +11,7 @@ const createStateProvider = () => {
     }
   }
 
-  const saveState = state => {
+  saveState = state => {
     try {
       const serializedState = JSON.stringify(state)
       localStorage.setItem('state', serializedState)
@@ -19,11 +19,6 @@ const createStateProvider = () => {
       // error
     }
   }
-
-  return {
-    loadState,
-    saveState
-  }
 }
 
-export const stateProvider = createStateProvider()
+export const stateProvider = new createStateProvider()
