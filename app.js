@@ -1,5 +1,7 @@
 const express = require('express')
-const bodyParser = require('body-parser')
+const helmet = require('helmet')
+const rateLimit = require('express-rate-limit')
+const cors = require('cors')
 const setupLogger = require('./config/logger.config')
 const setupRoutes = require('./util/routes.utils')
 const setupSwagger = require('./docs/swagger.setup');
@@ -7,8 +9,18 @@ const setupSwagger = require('./docs/swagger.setup');
 const { PORT } = require('./config/base.config')
 const app = express()
 
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+app.use(helmet())
+app.use(rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100
+}))
+app.use(cors({
+  // origin: ,
+  // methods: ,
+  // allowedHeaders:
+}))
 app.use(setupLogger)
 
 setupRoutes(app)
