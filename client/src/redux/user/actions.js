@@ -5,14 +5,12 @@ export const getUserInfoByToken = () => dispatch => {
   dispatch(userByTokenRequest())
 
   userProvider.getMyProfile()
-    .then(
-      response => {
-        dispatch(userSuccess(response.data))
-      },
-      error => {
-        dispatch(userError(error))
-      }
-    )
+    .then(response => {
+      dispatch(userSuccess(response.data))
+    })
+    .catch(error => {
+      dispatch(userError(error))
+    })
 }
 
 export const userByTokenRequest = () => ({

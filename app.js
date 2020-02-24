@@ -3,23 +3,26 @@ const helmet = require('helmet')
 const rateLimit = require('express-rate-limit')
 const cors = require('cors')
 const setupLogger = require('./config/logger.config')
-const setupRoutes = require('./util/routes.utils')
+const setupRoutes = require('./utils/routes.utils')
 const setupSwagger = require('./docs/swagger.setup');
 
 const { PORT } = require('./config/base.config')
 const app = express()
+
+// app.use(cors({
+//   // origin: ,
+//   // methods: ,
+//   // allowedHeaders:
+// }))
+app.use('/public', express.static(__dirname + '/public'))
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(helmet())
 app.use(rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 100
-}))
-app.use(cors({
-  // origin: ,
-  // methods: ,
-  // allowedHeaders:
+  max: 100,
+  message: `Too many accounts created from this IP, please try again after an hour`
 }))
 app.use(setupLogger)
 

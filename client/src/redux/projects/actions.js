@@ -5,28 +5,24 @@ export const getAllProjects = () => dispatch => {
   dispatch(projectsRequest())
 
   projectProvider.getAllProjects()
-    .then(
-      response => {
-        dispatch(projectsSuccess(response.data))
-      },
-      error => {
-        dispatch(projectsError(error))
-      }
-    )
+    .then(response => {
+      dispatch(projectsSuccess(response.data))
+    })
+    .catch(error => {
+      dispatch(projectsError(error))
+    })
 }
 
 export const getProjectInfo = (id) => dispatch => {
   dispatch(projectsRequest())
 
   projectProvider.getProjectById(id)
-    .then(
-      response => {
-        dispatch(projectSuccess(response.data))
-      },
-      error => {
-        dispatch(projectsError(error))
-      }
-    )
+    .then(response => {
+      dispatch(projectSuccess(response.data))
+    })
+    .catch(error => {
+      dispatch(projectsError(error))
+    })
 }
 
 export const projectsRequest = () => ({

@@ -1,12 +1,12 @@
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT_USER } from './types'
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT_USER, REGISTRATION_REQUEST, REGISTRATION_SUCCESS, REGISTRATION_ERROR } from './types'
 
 const initialState = {
   isLoading: false,
   hasError: false,
-  isAuth: false,
+  isAuth: JSON.parse(localStorage.getItem('token')) ? true : false,
   errors: null,
-  user: null,
-  token: null
+  credentials: null,
+  token: JSON.parse(localStorage.getItem('token')) || null
 }
 
 export const authReducer = (state = initialState, action) => {
@@ -15,11 +15,14 @@ export const authReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: true,
-        user: action.credentials
+        credentials: action.credentials
       }
     case LOGOUT_USER:
       return {
-        ...initialState
+        ...state,
+        isAuth: false,
+        credentials: null,
+        token: null
       }
     case LOGIN_SUCCESS:
       return {
@@ -29,6 +32,26 @@ export const authReducer = (state = initialState, action) => {
         token: action.token
       }
     case LOGIN_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        hasError: true,
+        errors: action.errors
+      }
+    case REGISTRATION_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+        user: action.credentials
+      }
+    case REGISTRATION_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        isAuth: true,
+        token: action.token
+      }
+    case REGISTRATION_ERROR:
       return {
         ...state,
         isLoading: false,

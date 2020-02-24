@@ -1,7 +1,8 @@
 const { Router } = require('express')
 const { check } = require('express-validator')
 const { getAllProjects, getUserProjects, getProjectInfo, addProject, updateProject, deleteProject, getUserDevsProjects } = require('../controllers/project.controller')
-const authMiddleware = require('../middleware/auth.middleware')
+const authMiddleware = require('../middlewares/auth.middleware')
+const { singleUpload } = require('../middlewares/upload.middleware')
 const router = Router()
 
 router.get(
@@ -16,6 +17,7 @@ router.get(
 router.post(
   '/',
   authMiddleware,
+  singleUpload('cover'),
   addProject
 )
 router.get(

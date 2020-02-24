@@ -1,7 +1,7 @@
 require('dotenv').config()
 const chalk = require('chalk')
 const app = require('./app')
-const { connect } = require('./util/database.utils')
+const { connect } = require('./utils/database.utils')
 const { SERVER, PORT } = require('./config/base.config')
 
 const start = async () => {

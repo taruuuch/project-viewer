@@ -3,7 +3,7 @@ const dayjs = require('dayjs')
 
 const schema = new Schema({
   title: { type: String, required: true },
-  logo: { type: String, required: true, default: 'none' },
+  cover: { type: String, required: true, default: 'none' },
   create_by: { type: Types.ObjectId, ref: 'User' },
   create_at: { type: Date, required: true, default: dayjs() },
   devs: [

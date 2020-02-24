@@ -1,17 +1,14 @@
-import React, { useEffect, useCallback, Fragment } from 'react'
+import React, { useEffect, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { getAllProjects } from '../redux/projects/actions'
-import dayjs from 'dayjs'
-import { useStyles } from '../helpers/style'
-import { CircularProgress, Paper, TableContainer, Table, TableHead, TableBody, TableRow, TableCell } from '@material-ui/core'
+import { CircularProgress, Grid, Typography, Card, CardActionArea, CardActions, CardContent, CardMedia, Button } from '@material-ui/core'
 
 export const ProjectsPage = () => {
   const isLoading = useSelector(state => state.projects.isLoading)
   const projects = useSelector(state => state.projects.projects)
   const dispatch = useDispatch()
   const getProjects = useCallback(() => dispatch(getAllProjects()), [dispatch])
-  const classes = useStyles()
 
   useEffect(() => {
     getProjects()
@@ -22,34 +19,37 @@ export const ProjectsPage = () => {
   }
 
   return (
-    <Fragment>
-    {projects
-      ? <TableContainer component={Paper}>
-          <Table className={classes.table} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>#</TableCell>
-                <TableCell>Title</TableCell>
-                <TableCell>Create</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {projects.map((project, index) => {
-                return (
-                  <TableRow key={project._id}>
-                    <TableCell component="th" scope="row">{index + 1}</TableCell>
-                    <TableCell>
-                      <Link to={`/project/${project._id}`}>{project.title}</Link>
-                    </TableCell>
-                    <TableCell>{dayjs(project.create_at).toString()}</TableCell>
-                  </TableRow>
-                )
-              })}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      : "Project not exists!"
-    }
-    </Fragment>
+    <Grid container spacing={2} justify="center">
+      {projects
+        ? projects.map(project =>
+          <Grid item key={project._id}>
+            <Card>
+              <CardActionArea>
+                <CardMedia
+                  component="img"
+                  alt="Contemplative Reptile"
+                  height="140"
+                  image={`http://localhost:8080${project.cover}`}
+                  title="Contemplative Reptile"
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    {project.title}
+                  </Typography>
+                  <Typography component="p">{project.create_by}</Typography>
+                </CardContent>
+              </CardActionArea>
+              <CardActions>
+                <Link to={`/project/${project._id}`}>
+                  <Button size="small" color="primary">
+                    Learn More
+                  </Button>
+                </Link>
+              </CardActions>
+            </Card>
+          </Grid>)
+        : "Project not exists!"
+      }
+    </Grid>
   )
 }

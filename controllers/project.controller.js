@@ -1,6 +1,7 @@
 const Project = require('../models/Project')
 const { validationResult } = require('express-validator')
 const { PROJECTS_NOT_FOUND, USER_DIDNT_HAVE_PROJECTS,  PROJECT_NOT_FOUND, INVALID_FOUND, PROJECT_CREATE_ERROR,  PROJECT_UPDATE_ERROR, PROJECT_DELETED, PROJECT_DELETED_ERROR } = require('../constants/project.constants')
+const { DIRPATH } = require('../config/base.config')
 
 exports.getAllProjects = async (req, res) => {
   try {
@@ -75,10 +76,11 @@ exports.addProject = async (req, res) => {
       })
     }
 
-    const { title, logo, devs, description, tags } = req.body
+    const { title, description, tags } = req.body
+    const cover = `${DIRPATH}/${req.file.filename}`
     const { id } = req.decode
 
-    const project = new Project({ title, logo, create_by: id, devs: [id], description, tags })
+    const project = new Project({ title, cover, create_by: id, devs: [id], description, tags })
 
     await project.save().then(project => res.status(201).json(project)
     )

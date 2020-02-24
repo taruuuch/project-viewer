@@ -8,7 +8,7 @@ import { jwtDecode } from '../helpers/jwt'
 import dayjs from 'dayjs'
 
 export const ProfilePage = () => {
-  const token = useSelector(state => state.auth.token || state.registration.token)
+  const token = useSelector(state => state.auth.token)
   const isLoading = useSelector(state => state.user.isLoading)
   const user = useSelector(state => state.user.user)
   const dispatch = useDispatch()

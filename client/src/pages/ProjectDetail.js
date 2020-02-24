@@ -24,6 +24,9 @@ export const ProjectDetailPage = () => {
     <div>
       {project
         ? <Fragment>
+            <div>
+              <img src={`http://localhost:8080${project.cover}`} alt={project.title} height="200px" />
+            </div>
             <Typography variant="h4">{project.title}</Typography>
             <Typography paragraph>{project.description}</Typography>
             <div>

@@ -2,7 +2,7 @@ const bcrypt = require('bcryptjs')
 const User = require('../models/User')
 const { validationResult } = require('express-validator')
 const { AUTH_ERROR, USER_EXIST, INVALID_DATA, USER_NOT_FOUND, INVALID_PASSWORD } = require('../constants/auth.constants')
-const { generateToken } = require('../util/auth.utils')
+const { generateToken } = require('../utils/auth.utils')
 
 exports.registration = async (req, res) => {
   try {

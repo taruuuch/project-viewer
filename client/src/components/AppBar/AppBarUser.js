@@ -1,11 +1,13 @@
 import React, { Fragment, useState } from 'react'
-import { AppBarLink } from './AppBarLink'
+import { NavLink } from 'react-router-dom'
+import { useStyles } from './style'
 import { IconButton, Menu, MenuItem } from '@material-ui/core'
 import { AccountCircle } from '@material-ui/icons'
 
 export const AppBarUser = ({ isAuth }) => {
   const [anchorEl, setAnchorEl] = useState(null)
   const open = !!anchorEl
+  const classes = useStyles()
 
   const handleMenu = event => {
     setAnchorEl(event.currentTarget)
@@ -16,9 +18,9 @@ export const AppBarUser = ({ isAuth }) => {
   }
 
   return (
-    <Fragment>
-      {isAuth && (
-        <div>
+    <div className={classes.login}>
+      {isAuth ? (
+        <>
           <IconButton
             aria-label="account of current user"
             aria-controls="menu-appbar"
@@ -44,26 +46,24 @@ export const AppBarUser = ({ isAuth }) => {
             onClose={handleClose}
           >
             <MenuItem>
-              <AppBarLink
-                link="/profile"
-                title="Profile"
-              />
+              <NavLink to="/profile">
+                Profile
+              </NavLink>
             </MenuItem>
             <MenuItem>
-              <AppBarLink
-                link="/portfolio/create"
-                title="Create project"
-              />
+              <NavLink to="/portfolio/create">
+                Create project
+              </NavLink>
             </MenuItem>
             <MenuItem>
-              <AppBarLink
-                link="/logout"
-                title="Logout"
-              />
+              <NavLink to="/logout">
+                Logout
+              </NavLink>
             </MenuItem>
           </Menu>
-        </div>
-      )}
-    </Fragment>
+        </>
+      )
+      : <NavLink to="/login">Login</NavLink>}
+    </div>
   )
 }
