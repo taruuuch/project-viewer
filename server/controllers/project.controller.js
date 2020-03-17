@@ -91,8 +91,8 @@ exports.addProject = async (req, res) => {
 
 exports.updateProject = async (req, res) => {
   try {
-    const { projectId } = req.params;
-    const body = req.body;
+    const { projectId } = req.params
+    const body = req.body
 
     await Project.findOneAndUpdate(projectId, body, { new: true })
       .then(project => res.status(200).json(project))
